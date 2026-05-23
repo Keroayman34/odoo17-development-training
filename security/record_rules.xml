@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- HMS User: access only own patients -->
+    <record id="rule_hms_patient_user_own" model="ir.rule">
+        <field name="name">HMS Patient: own records only</field>
+        <field name="model_id" ref="model_hms_patient"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_user'))]"/>
+    </record>
+
+    <!-- HMS Manager: access all patients -->
+    <record id="rule_hms_patient_manager_all" model="ir.rule">
+        <field name="name">HMS Patient: all records</field>
+        <field name="model_id" ref="model_hms_patient"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_manager'))]"/>
+    </record>
+
+    <!-- HMS User: access only logs of own patients -->
+    <record id="rule_hms_patient_log_user_own" model="ir.rule">
+        <field name="name">HMS Patient Log: own patients only</field>
+        <field name="model_id" ref="model_hms_patient_log"/>
+        <field name="domain_force">[('patient_id.create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_user'))]"/>
+    </record>
+
+    <!-- HMS Manager: access all logs -->
+    <record id="rule_hms_patient_log_manager_all" model="ir.rule">
+        <field name="name">HMS Patient Log: all records</field>
+        <field name="model_id" ref="model_hms_patient_log"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_manager'))]"/>
+    </record>
+
+</odoo>

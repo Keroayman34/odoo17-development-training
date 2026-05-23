@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- HMS security category -->
+    <record id="module_category_hms" model="ir.module.category">
+        <field name="name">HMS</field>
+        <field name="sequence">30</field>
+    </record>
+
+    <!-- HMS User group -->
+    <record id="group_hms_user" model="res.groups">
+        <field name="name">HMS User</field>
+        <field name="category_id" ref="module_category_hms"/>
+    </record>
+
+    <!-- HMS Manager group (inherits HMS User) -->
+    <record id="group_hms_manager" model="res.groups">
+        <field name="name">HMS Manager</field>
+        <field name="category_id" ref="module_category_hms"/>
+        <field name="implied_ids" eval="[(4, ref('hms.group_hms_user'))]"/>
+    </record>
+
+</odoo>

@@ -43,6 +43,7 @@
         id="doctors_menu"
         name="Doctors"
         parent="hms_main_menu"
-        action="doctors_action"/>
+        action="doctors_action"
+        groups="hms.group_hms_manager"/>
 
 </odoo>

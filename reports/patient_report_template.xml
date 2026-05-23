@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="patient_report_document">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <h2>Patient Report</h2>
+
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-3">
+                            <t t-if="o.image">
+                                <img t-att-src="'data:image/png;base64,%s' % (o.image)" style="max-height: 120px;"/>
+                            </t>
+                        </div>
+                        <div class="col-9">
+                            <p><strong>Name:</strong> <span t-esc="o.first_name"/> <span t-esc="o.last_name"/></p>
+                            <p><strong>Age:</strong> <span t-esc="o.age"/></p>
+                            <p><strong>Birth Date:</strong> <span t-field="o.birth_date"/></p>
+                            <p><strong>Department:</strong> <span t-esc="o.department_id.name"/></p>
+                            <p><strong>PCR:</strong> <span t-esc="'Yes' if o.pcr else 'No'"/></p>
+                            <p><strong>Blood Type:</strong> <span t-esc="o.blood_type"/></p>
+                            <p><strong>Email:</strong> <span t-esc="o.email"/></p>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 20px;">Doctors</h3>
+                    <ul>
+                        <t t-foreach="o.doctor_ids" t-as="doc">
+                            <li><span t-esc="doc.first_name"/> <span t-esc="doc.last_name"/></li>
+                        </t>
+                    </ul>
+
+                    <h3 style="margin-top: 20px;">Log History</h3>
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.patient_log_ids" t-as="log">
+                                <tr>
+                                    <td><span t-esc="log.created_by.name"/></td>
+                                    <td><span t-field="log.date"/></td>
+                                    <td><span t-esc="log.description"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

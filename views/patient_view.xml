@@ -53,7 +53,8 @@
 
                         <field name="doctor_ids"
                                widget="many2many_tags"
-                               readonly="not department_id"/>
+                               readonly="not department_id"
+                               groups="hms.group_hms_manager"/>
                     </group>
 
                     <group>
