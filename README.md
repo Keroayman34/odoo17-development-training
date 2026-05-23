@@ -2,7 +2,7 @@
 
 A beginner-friendly Hospital Management System (HMS) built using Odoo 17 during backend and ERP development training.
 
-This project was developed step by step while learning core Odoo backend development concepts including models, views, relations, constraints, computed fields, CRM integration, and Odoo 17 compatibility fixes.
+This project was developed step by step while learning core Odoo backend development concepts including models, views, relations, constraints, computed fields, CRM integration, security, reporting, and Odoo 17 compatibility fixes.
 
 ---
 
@@ -20,9 +20,10 @@ The module currently supports:
 * CRM Customer Integration
 * Computed Fields
 * API & SQL Constraints
+* Security Groups & Record Rules
+* QWeb PDF Reporting
 * Form and Tree Views
 * XML View Inheritance
-* Security Access Rules
 * Odoo 17 Compatible UI Logic
 
 The project is intentionally kept beginner-friendly while still following clean and professional Odoo development practices.
@@ -35,20 +36,22 @@ The project is intentionally kept beginner-friendly while still following clean 
 * Python
 * PostgreSQL
 * XML
+* QWeb Reports
 
 ---
 
 # Current Branch
 
 ```bash
-day3-constraints-and-crm
-```
+day4-security-and-reports
+````
 
 This branch contains:
 
 * Day 1 HMS basics
 * Day 2 relations and views
-* Day 3 constraints, CRM integration, computed fields, logs, and Odoo 17 fixes
+* Day 3 constraints and CRM integration
+* Day 4 security system and reporting
 
 ---
 
@@ -76,7 +79,13 @@ hms/
 │   └── res_partner_view.xml
 │
 ├── security/
-│   └── ir.model.access.csv
+│   ├── ir.model.access.csv
+│   ├── res_groups.xml
+│   └── record_rules.xml
+│
+├── reports/
+│   ├── patient_report.xml
+│   └── patient_report_template.xml
 │
 └── static/
     └── description/
@@ -86,7 +95,7 @@ hms/
 
 # Features
 
-## Patients
+# Patients
 
 * Create and manage patients
 * Auto calculate age from birth date
@@ -97,10 +106,11 @@ hms/
 * Doctors assignment
 * Upload patient image
 * Patient log history tracking
+* Patient PDF report generation
 
 ---
 
-## Departments
+# Departments
 
 * Create hospital departments
 * Define department capacity
@@ -109,7 +119,7 @@ hms/
 
 ---
 
-## Doctors
+# Doctors
 
 * Create doctors records
 * Store doctors information
@@ -117,7 +127,7 @@ hms/
 
 ---
 
-## Patient Logs
+# Patient Logs
 
 Automatically creates logs when:
 
@@ -160,6 +170,68 @@ Extended Odoo Contacts model (`res.partner`) with:
 
 ---
 
+# Security System (Day 4)
+
+Implemented professional role-based access control using Odoo security groups and record rules.
+
+## HMS User Group
+
+HMS Users can:
+
+* Create their own patients
+* Read their own patients
+* Update their own patients
+* Read departments
+* Read doctors
+
+Restrictions:
+
+* Cannot delete patients
+* Cannot manage departments
+* Cannot manage doctors
+* Cannot see doctors menu
+* Cannot see doctors field inside patient form
+* Can only access their own patient records
+
+---
+
+## HMS Manager Group
+
+HMS Managers can:
+
+* Full CRUD on patients
+* Full CRUD on departments
+* Full CRUD on doctors
+* View all patients
+* Access all menus and fields
+
+---
+
+# Patient PDF Report
+
+Implemented a professional QWeb PDF report for patients.
+
+The report includes:
+
+* Patient Image
+* Name
+* Age
+* Birth Date
+* Blood Type
+* PCR Status
+* Email
+* Department
+* Assigned Doctors
+* Patient Logs History
+
+The report uses:
+
+* QWeb PDF
+* web.external_layout
+* Odoo Report Actions
+
+---
+
 # Odoo Concepts Practiced
 
 * Models
@@ -174,8 +246,11 @@ Extended Odoo Contacts model (`res.partner`) with:
 * API Constraints
 * SQL Constraints
 * Onchange Methods
-* Security Access
+* Security Groups
+* Record Rules
+* Access Rights
 * Menus & Actions
+* QWeb Reports
 * Odoo 17 Modern Syntax
 
 ---
@@ -192,6 +267,7 @@ Implemented business rules including:
 * Email uniqueness validation
 * CRM customer protection
 * Automatic patient state logs
+* Ownership-based patient access
 
 ---
 
@@ -213,13 +289,37 @@ Modern Odoo 17 expressions are used instead.
 Clone the repository:
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/Keroayman34/odoo17-development-training.git
 ```
 
 Go to the project:
 
 ```bash
-cd hms
+cd odoo17-development-training
+```
+
+Create virtual environment:
+
+```bash
+python3 -m venv .venv
+```
+
+Activate virtual environment:
+
+```bash
+source .venv/bin/activate
+```
+
+Install Python requirements:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run PostgreSQL service:
+
+```bash
+sudo service postgresql start
 ```
 
 Run Odoo:
@@ -234,6 +334,26 @@ Upgrade HMS module:
 python3 odoo-bin --addons-path=addons,custom_addons -u hms
 ```
 
+Open browser:
+
+```text
+http://localhost:8069
+```
+
+---
+
+# Git Workflow
+
+Main development branches:
+
+```bash
+day1-day2
+day3-constraints-and-crm
+day4-security-and-reports
+```
+
+Each branch represents training progress and feature evolution during the course.
+
 ---
 
 # Future Improvements
@@ -242,16 +362,22 @@ Future training branches may include:
 
 * Smart Buttons
 * Search Views
-* Record Rules
 * Wizards
 * ORM Advanced Methods
 * Scheduled Actions
-* Reports
 * Dashboards
-* API Integrations
+* REST APIs
+* Website Integration
+* Barcode Integration
+* Accounting Integration
 
 ---
 
 # Learning Purpose
 
-This project is built for educational and training purposes while learning Odoo 17 backend development step by step.
+This project is built for educational and training purposes while learning Odoo 17 backend and ERP development step by step.
+
+The project focuses on understanding real Odoo architecture and backend development fundamentals using practical labs and incremental feature implementation.
+
+```
+```
